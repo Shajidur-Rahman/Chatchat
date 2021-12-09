@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ChatChat</string>
+    <string name="verifyTitle">Verify Phone number</string>
+    <string name="verifydec">ChatChat will send an otp to verify your phone number</string>
+</resources>
