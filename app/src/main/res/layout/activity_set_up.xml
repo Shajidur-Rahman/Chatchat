@@ -5,43 +5,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="#439EC6"
-    tools:context=".OtpActivity">
+    tools:context=".PhoneNumberActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="265dp"
-        android:layout_height="156dp"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/setImage"
+        android:layout_width="300dp"
+        android:layout_height="140dp"
         android:layout_marginTop="56dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/phonenumberverifyicon" />
+        android:src="@drawable/user" />
 
     <TextView
-        android:id="@+id/otptextView"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:text="@string/verifyTitle"
+        android:text="Profile INFO"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/setImage" />
 
     <TextView
-        android:id="@+id/opt_dec"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:foregroundGravity="center"
         android:gravity="center"
-        android:text="@string/verifydec"
+        android:text="Please set your name and an optional profile image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/otptextView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -54,7 +54,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/opt_dec"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
         app:layout_constraintVertical_bias="0.397">
 
         <LinearLayout
@@ -64,29 +64,26 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
 
-            <com.mukesh.OtpView
-                android:id="@+id/otp_view"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/setName"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_gravity="center"
-                android:inputType="number"
                 android:layout_marginBottom="15dp"
-                android:itemBackground="#E3DFDF"
-                android:textColor="#121111"
-                app:OtpItemCount="6"
-                app:OtpLineColor="#BCAFAF"
-                app:OtpViewType="line"
-                />
+                android:ems="10"
+                android:hint="Set your name: "
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                android:paddingLeft="10dp" />
 
             <Button
-                android:id="@+id/otp_button"
+                android:id="@+id/setBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
                 android:background="@drawable/button"
                 android:backgroundTint="#00BCD4"
-                android:text="Continue"
+                android:text="Set up profile"
                 app:cornerRadius="10dp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
