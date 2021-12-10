@@ -5,7 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable/button.xml" value="0.1527777777777778" />
         <entry key="app/src/main/res/drawable/toolbox.xml" value="0.1527777777777778" />
-        <entry key="app/src/main/res/layout/activity_otp.xml" value="0.23854166666666668" />
+        <entry key="app/src/main/res/layout/activity_otp.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_phone_number.xml" value="0.22" />
       </map>
     </option>

@@ -65,19 +65,19 @@
             android:paddingRight="10dp">
 
             <EditText
-                android:id="@+id/editTextTextPersonName"
+                android:id="@+id/phone_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="15dp"
                 android:ems="10"
                 android:hint="Enter your number"
-                android:inputType="number"
+                android:inputType="phone"
                 android:minHeight="48dp"
                 android:paddingLeft="10dp" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/phone_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
