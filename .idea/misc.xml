@@ -4,10 +4,17 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/button.xml" value="0.1527777777777778" />
+        <entry key="app/src/main/res/drawable/ic_attachment.xml" value="0.18888888888888888" />
+        <entry key="app/src/main/res/drawable/ic_call.xml" value="0.18888888888888888" />
+        <entry key="app/src/main/res/drawable/ic_search.xml" value="0.18888888888888888" />
         <entry key="app/src/main/res/drawable/toolbox.xml" value="0.1527777777777778" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2265625" />
         <entry key="app/src/main/res/layout/activity_otp.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_phone_number.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_set_up.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/raw_conversation.xml" value="0.23854166666666668" />
+        <entry key="app/src/main/res/menu/bottom_nevigation.xml" value="0.2265625" />
+        <entry key="app/src/main/res/menu/toppermenu.xml" value="0.2265625" />
       </map>
     </option>
   </component>

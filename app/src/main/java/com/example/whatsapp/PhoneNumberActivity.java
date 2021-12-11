@@ -7,10 +7,13 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.whatsapp.databinding.ActivityPhoneNumberBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class PhoneNumberActivity extends AppCompatActivity {
 
     ActivityPhoneNumberBinding binding;
+
+    FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +21,14 @@ public class PhoneNumberActivity extends AppCompatActivity {
         binding = ActivityPhoneNumberBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getSupportActionBar().hide();
+
+        auth = FirebaseAuth.getInstance();
+
+        if (auth.getCurrentUser() != null){
+            startActivity(new Intent(PhoneNumberActivity.this, MainActivity.class));
+            finish();
+        }
+
         binding.phoneNumber.requestFocus();
 
         binding.phoneButton.setOnClickListener(new View.OnClickListener() {
