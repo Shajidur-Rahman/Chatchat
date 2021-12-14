@@ -35,9 +35,10 @@ public class SetUpActivity extends AppCompatActivity {
         binding = ActivitySetUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        getActionBar().hide();
+        getSupportActionBar().hide();
 
-        dialog.setMessage("Updating profile");
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Updating profile...");
         dialog.setCancelable(false);
 
         auth = FirebaseAuth.getInstance();
