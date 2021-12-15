@@ -27,7 +27,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/editTextTextPersonName2"
+                android:id="@+id/sendMsg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -52,7 +52,7 @@
     </androidx.cardview.widget.CardView>
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/sendBtn"
         android:layout_width="40dp"
         android:layout_height="30dp"
         android:layout_marginBottom="16dp"
@@ -65,8 +65,8 @@
         app:srcCompat="@drawable/ic_send" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="409dp"
-        android:layout_height="688dp"
+        android:layout_width="0dp"
+        android:layout_height="672dp"
         android:layout_marginEnd="2dp"
         app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
