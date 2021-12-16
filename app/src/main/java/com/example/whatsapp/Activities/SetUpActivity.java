@@ -1,4 +1,4 @@
-package com.example.whatsapp;
+package com.example.whatsapp.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.whatsapp.Models.Users;
 import com.example.whatsapp.databinding.ActivitySetUpBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;

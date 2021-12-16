@@ -1,4 +1,4 @@
-package com.example.whatsapp;
+package com.example.whatsapp.Activities;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.whatsapp.Adapters.MessagesAdapter;
+import com.example.whatsapp.Models.Message;
 import com.example.whatsapp.databinding.ActivityChatBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;

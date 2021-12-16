@@ -1,4 +1,4 @@
-package com.example.whatsapp;
+package com.example.whatsapp.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.whatsapp.Activities.ChatActivity;
+import com.example.whatsapp.Models.Users;
+import com.example.whatsapp.R;
 import com.example.whatsapp.databinding.RawConversationBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;

@@ -1,4 +1,4 @@
-package com.example.whatsapp;
+package com.example.whatsapp.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.whatsapp.Models.Users;
+import com.example.whatsapp.R;
+import com.example.whatsapp.Adapters.UserAdapter;
 import com.example.whatsapp.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;

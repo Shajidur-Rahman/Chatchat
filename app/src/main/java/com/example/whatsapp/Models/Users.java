@@ -1,4 +1,4 @@
-package com.example.whatsapp;
+package com.example.whatsapp.Models;
 
 public class Users {
     private String uid, name, phone_number, profileImage;

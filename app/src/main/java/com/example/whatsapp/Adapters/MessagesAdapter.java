@@ -1,4 +1,4 @@
-package com.example.whatsapp;
+package com.example.whatsapp.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.whatsapp.Models.Message;
+import com.example.whatsapp.R;
 import com.example.whatsapp.databinding.ItemReceiveBinding;
 import com.example.whatsapp.databinding.SentActivityBinding;
 import com.github.pgreze.reactions.ReactionPopup;

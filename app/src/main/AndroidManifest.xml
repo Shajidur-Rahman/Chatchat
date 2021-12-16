@@ -13,17 +13,17 @@
         android:theme="@style/Theme.WhatsApp"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ChatActivity"
+            android:name=".Activities.ChatActivity"
             android:exported="false" />
         <activity
-            android:name=".SetUpActivity"
+            android:name=".Activities.SetUpActivity"
             android:exported="false" />
         <activity
-            android:name=".OtpActivity"
+            android:name=".Activities.OtpActivity"
             android:exported="false"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".PhoneNumberActivity"
+            android:name=".Activities.PhoneNumberActivity"
             android:exported="true"
             android:windowSoftInputMode="stateVisible">
             <intent-filter>
@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:exported="true" />
     </application>
 

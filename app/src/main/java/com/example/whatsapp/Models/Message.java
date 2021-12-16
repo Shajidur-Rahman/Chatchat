@@ -1,4 +1,4 @@
-package com.example.whatsapp;
+package com.example.whatsapp.Models;
 
 public class Message {
     private String messageId, message, senderId;

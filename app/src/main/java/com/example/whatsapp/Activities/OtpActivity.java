@@ -1,4 +1,4 @@
-package com.example.whatsapp;
+package com.example.whatsapp.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
