@@ -26,13 +26,13 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/feelings"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/send"
-        app:layout_constraintEnd_toEndOf="@+id/send"
-        app:layout_constraintStart_toEndOf="@+id/send"
-        app:layout_constraintTop_toTopOf="@+id/send"
+        app:layout_constraintBottom_toBottomOf="@+id/message"
+        app:layout_constraintEnd_toEndOf="@+id/message"
+        app:layout_constraintStart_toEndOf="@+id/message"
+        app:layout_constraintTop_toTopOf="@+id/message"
         app:srcCompat="@drawable/ic_fb_love" />
 </androidx.constraintlayout.widget.ConstraintLayout>

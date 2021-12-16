@@ -11,8 +11,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.whatsapp.databinding.RawConversationBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
 
@@ -34,6 +41,35 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         Users user = users.get(position);
+
+        String senderId = FirebaseAuth.getInstance().getUid();
+        String senderRoom = senderId + user.getUid();
+
+        FirebaseDatabase.getInstance().getReference()
+                .child("Chats")
+                .child(senderRoom)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            String lastMsg = snapshot.child("lastMsg").getValue(String.class);
+                            long lastMsgTime = snapshot.child("lastMsgTime").getValue(Long.class);
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+
+                            holder.binding.rawLastMsg.setText(lastMsg);
+                            holder.binding.rawTimeMsg.setText(dateFormat.format(new Date(lastMsgTime)));
+
+                        } else {
+                            holder.binding.rawLastMsg.setText("No recent chat");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
         holder.binding.rawName.setText(user.getName());
         Glide.with(context).load(user.getProfileImage())
                 .placeholder(R.drawable.user)

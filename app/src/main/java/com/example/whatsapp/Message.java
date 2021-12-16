@@ -3,7 +3,7 @@ package com.example.whatsapp;
 public class Message {
     private String messageId, message, senderId;
     private long timestamp;
-    private int imoje;
+    private int imoje = -1;
 
     public Message() {
     }
