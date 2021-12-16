@@ -1,6 +1,8 @@
 package com.example.whatsapp.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -10,19 +12,32 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.whatsapp.Adapters.TopStatusAdapter;
+import com.example.whatsapp.Models.UserStatus;
 import com.example.whatsapp.Models.Users;
 import com.example.whatsapp.R;
 import com.example.whatsapp.Adapters.UserAdapter;
 import com.example.whatsapp.databinding.ActivityMainBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth auth;
     ArrayList<Users> users;
     UserAdapter userAdapter;
+    TopStatusAdapter statusAdapter;
+    ArrayList<UserStatus> userStatuses;
+    ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +59,23 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
                 WindowManager.LayoutParams.FLAG_SECURE);
 
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Uploading image");
+        dialog.setCancelable(false);
+
+        userStatuses = new ArrayList<>();
+        statusAdapter = new TopStatusAdapter(this, userStatuses);
+
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
 
         users = new ArrayList<>();
         userAdapter = new UserAdapter(this, users);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        binding.statusRecycler.setLayoutManager(layoutManager);
+        binding.statusRecycler.setAdapter(statusAdapter);
         binding.recyclerView.setAdapter(userAdapter);
 
         database.getReference().child("users")
@@ -72,6 +102,48 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+        binding.bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.status:
+                        Intent intent = new Intent();
+                        intent.setType("image/*");
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(intent, 75);
+                        break;
+                }
+                return false;
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (data != null){
+            if (data.getData() != null){
+                dialog.show();
+                FirebaseStorage storage = FirebaseStorage.getInstance();
+                Date date = new Date();
+                StorageReference reference = storage.getReference().child("status").child(date.getTime() + "");
+                reference.putFile(data.getData()).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        if (task.isSuccessful()){
+                            reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    //////
+                                    dialog.dismiss();
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
