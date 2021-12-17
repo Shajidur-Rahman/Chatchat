@@ -1,8 +1,10 @@
 package com.example.whatsapp.Activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -68,6 +70,11 @@ public class OtpActivity extends AppCompatActivity {
                         super.onCodeSent(s, forceResendingToken);
                         dialog.dismiss();
                         verificationId = s;
+
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+                        binding.otpView.requestFocus();
+
                     }
                 })
                 .build();

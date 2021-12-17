@@ -72,6 +72,7 @@
                 android:layout_gravity="center"
                 android:inputType="number"
                 android:layout_marginBottom="15dp"
+                android:focusableInTouchMode="true"
                 android:itemBackground="#E3DFDF"
                 android:textColor="#121111"
                 app:OtpItemCount="6"
