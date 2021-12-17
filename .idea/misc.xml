@@ -17,7 +17,7 @@
         <entry key="app/src/main/res/layout/activity_phone_number.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_set_up.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_receive.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/item_status.xml" value="0.67" />
+        <entry key="app/src/main/res/layout/item_status.xml" value="0.33" />
         <entry key="app/src/main/res/layout/raw_conversation.xml" value="0.33" />
         <entry key="app/src/main/res/layout/sent_activity.xml" value="0.22" />
         <entry key="app/src/main/res/menu/bottom_nevigation.xml" value="0.2265625" />

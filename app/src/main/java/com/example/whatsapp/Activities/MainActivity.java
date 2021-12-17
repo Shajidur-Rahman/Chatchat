@@ -18,10 +18,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.whatsapp.Adapters.TopStatusAdapter;
+import com.example.whatsapp.Adapters.UserAdapter;
+import com.example.whatsapp.Models.Status;
 import com.example.whatsapp.Models.UserStatus;
 import com.example.whatsapp.Models.Users;
 import com.example.whatsapp.R;
-import com.example.whatsapp.Adapters.UserAdapter;
 import com.example.whatsapp.databinding.ActivityMainBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,6 +39,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     TopStatusAdapter statusAdapter;
     ArrayList<UserStatus> userStatuses;
     ProgressDialog dialog;
+    Users user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,20 @@ public class MainActivity extends AppCompatActivity {
         users = new ArrayList<>();
         userAdapter = new UserAdapter(this, users);
 
+        database.getReference().child("users")
+                .child(FirebaseAuth.getInstance().getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        user = snapshot.getValue(Users.class);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
         binding.statusRecycler.setLayoutManager(layoutManager);
@@ -94,6 +111,40 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         userAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+        database.getReference()
+                .child("stories")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            userStatuses.clear();
+                            for (DataSnapshot storiesSnap : snapshot.getChildren()){
+                                UserStatus userStatus = new UserStatus();
+                                userStatus.setName(storiesSnap.child("name").getValue(String.class));
+                                userStatus.setProfileImage(storiesSnap.child("profileImage").getValue(String.class));
+                                userStatus.setLastUploaded(storiesSnap.child("lastUpdate").getValue(Long.class));
+
+                                ArrayList<Status> statuses = new ArrayList<>();
+
+                                for (DataSnapshot story : storiesSnap.child("status").getChildren()){
+                                    Status smaple = story.getValue(Status.class);
+                                    statuses.add(smaple);
+                                }
+
+                                userStatus.setStatuses(statuses);
+
+                                userStatuses.add(userStatus);
+                            }
+                            statusAdapter.notifyDataSetChanged();
+                        }
                     }
 
                     @Override
@@ -135,6 +186,31 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     //////
+                                    UserStatus userStatus = new UserStatus();
+                                    userStatus.setName(user.getName());
+                                    userStatus.setProfileImage(user.getProfileImage());
+                                    userStatus.setLastUploaded(date.getTime());
+
+                                    HashMap<String, Object> obj = new HashMap<>();
+                                    obj.put("name", userStatus.getName());
+                                    obj.put("profileImage", userStatus.getProfileImage());
+                                    obj.put("lastUpdate", userStatus.getLastUploaded());
+
+                                    String imageUrl = uri.toString();
+                                    Status status = new Status(imageUrl, userStatus.getLastUploaded());
+
+                                    database.getReference()
+                                            .child("stories")
+                                            .child(FirebaseAuth.getInstance().getUid())
+                                            .updateChildren(obj);
+
+                                    database.getReference()
+                                            .child("stories")
+                                            .child(FirebaseAuth.getInstance().getUid())
+                                            .child("status")
+                                            .push()
+                                            .setValue(status);
+
                                     dialog.dismiss();
                                 }
                             });

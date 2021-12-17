@@ -8,11 +8,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.whatsapp.Activities.MainActivity;
+import com.example.whatsapp.Models.Status;
 import com.example.whatsapp.Models.UserStatus;
 import com.example.whatsapp.R;
 import com.example.whatsapp.databinding.ItemStatusBinding;
 
 import java.util.ArrayList;
+
+import omari.hamza.storyview.StoryView;
+import omari.hamza.storyview.callback.StoryClickListeners;
+import omari.hamza.storyview.model.MyStory;
 
 public class TopStatusAdapter extends RecyclerView.Adapter<TopStatusAdapter.TopStatusViewHolder>{
 
@@ -33,6 +40,46 @@ public class TopStatusAdapter extends RecyclerView.Adapter<TopStatusAdapter.TopS
 
     @Override
     public void onBindViewHolder(@NonNull TopStatusViewHolder holder, int position) {
+
+        UserStatus userStatus = userStatuses.get(position);
+
+        Status lastStatus = userStatus.getStatuses().get(userStatus.getStatuses().size() -1);
+
+        Glide.with(context).load(lastStatus.getImgUrl()).into(holder.binding.circle);
+
+        holder.binding.circularStatusView.setPortionsCount(userStatus.getStatuses().size());
+
+        holder.binding.circularStatusView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<MyStory> myStories = new ArrayList<>();
+
+                for (Status status : userStatus.getStatuses()){
+                    myStories.add(new MyStory(status.getImgUrl()));
+                }
+
+                new StoryView.Builder(((MainActivity)context).getSupportFragmentManager())
+                        .setStoriesList(myStories) // Required
+                        .setStoryDuration(5000) // Default is 2000 Millis (2 Seconds)
+                        .setTitleText(userStatus.getName()) // Default is Hidden
+                        .setSubtitleText("") // Default is Hidden
+                        .setTitleLogoUrl(userStatus.getProfileImage()) // Default is Hidden
+                        .setStoryClickListeners(new StoryClickListeners() {
+                            @Override
+                            public void onDescriptionClickListener(int position) {
+                                //your action
+                            }
+
+                            @Override
+                            public void onTitleIconClickListener(int position) {
+                                //your action
+                            }
+                        }) // Optional Listeners
+                        .build() // Must be called before calling show method
+                        .show();
+
+            }
+        });
 
     }
 
