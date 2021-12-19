@@ -41,6 +41,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+
+
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
@@ -51,7 +53,9 @@ public class MainActivity extends AppCompatActivity {
     TopStatusAdapter statusAdapter;
     ArrayList<UserStatus> userStatuses;
     ProgressDialog dialog;
+    ProgressDialog chat;
     Users user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +70,10 @@ public class MainActivity extends AppCompatActivity {
         dialog.setMessage("Uploading image");
         dialog.setCancelable(false);
 
+        chat = new ProgressDialog(this);
+        chat.setMessage("Loading Chats");
+        chat.setCancelable(false);
+
         userStatuses = new ArrayList<>();
         statusAdapter = new TopStatusAdapter(this, userStatuses);
 
@@ -74,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
 
         users = new ArrayList<>();
         userAdapter = new UserAdapter(this, users);
+
+        chat.show();
 
         database.getReference().child("users")
                 .child(FirebaseAuth.getInstance().getUid())
@@ -110,6 +120,8 @@ public class MainActivity extends AppCompatActivity {
                                 users.add(user);
                             }
                         }
+                        chat.dismiss();
+                        binding.recyclerView.hideShimmerAdapter();
                         userAdapter.notifyDataSetChanged();
                     }
 

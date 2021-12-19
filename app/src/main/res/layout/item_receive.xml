@@ -5,34 +5,45 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/message"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="12dp"
         android:background="@drawable/receive_drawable"
-        android:paddingLeft="4dp"
-        android:paddingTop="3dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="3dp"
-        android:text="TextView"
-        android:textSize="16sp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.02"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:layout_margin="6dp"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="12dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="4dp"
+            android:text="TextView"
+            android:textSize="16sp" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/feelings"
         android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/message"
-        app:layout_constraintEnd_toEndOf="@+id/message"
-        app:layout_constraintStart_toEndOf="@+id/message"
-        app:layout_constraintTop_toTopOf="@+id/message"
+        android:layout_height="31dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout"
         app:srcCompat="@drawable/ic_fb_love" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
