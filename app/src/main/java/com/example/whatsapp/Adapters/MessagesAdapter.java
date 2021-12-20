@@ -88,14 +88,22 @@ public class MessagesAdapter extends RecyclerView.Adapter{
 
 
 
+                try{
+                    viewHolder.binding.feelings.setImageResource(reaction[pos]);
+                    viewHolder.binding.feelings.setVisibility(View.VISIBLE);
+                } catch (Exception e){
+                    pos = -1;
+                }
 
-                viewHolder.binding.feelings.setImageResource(reaction[pos]);
-                viewHolder.binding.feelings.setVisibility(View.VISIBLE);
             }
             else {
                 ReceiveVIewHolder viewHolder = (ReceiveVIewHolder) holder;
-                viewHolder.binding.feelings.setImageResource(reaction[pos]);
-                viewHolder.binding.feelings.setVisibility(View.VISIBLE);
+                try{
+                    viewHolder.binding.feelings.setImageResource(reaction[pos]);
+                    viewHolder.binding.feelings.setVisibility(View.VISIBLE);
+                } catch (Exception e){
+                    pos = -1;
+                }
             }
 
             message.setImoje(pos);
@@ -121,16 +129,19 @@ public class MessagesAdapter extends RecyclerView.Adapter{
 
         if (holder.getClass() == SentViewHolder.class){
             SentViewHolder viewHolder = (SentViewHolder) holder;
-            viewHolder.binding.message.setText(message.getMessage());
 
-            if (message.getMessage().equals("Photo")){
+            if (message.getImageUrl() != null){
                 viewHolder.binding.image.setVisibility(View.VISIBLE);
                 viewHolder.binding.message.setVisibility(View.GONE);
-                Glide.with(context).load(message.getImageUrl()).into(viewHolder.binding.image);
+                Glide.with(context).load(message.getImageUrl())
+                        .placeholder(R.drawable.placeholdre)
+                        .into(viewHolder.binding.image);
+                message.setImageUrl("");
             }
-            else {
 
-            }
+                viewHolder.binding.message.setText(message.getMessage());
+
+
 
             if (message.getImoje() >= 0){
 //                message.setImoje(reaction[(int) message.getImoje()]);
@@ -153,16 +164,19 @@ public class MessagesAdapter extends RecyclerView.Adapter{
         }
         else {
             ReceiveVIewHolder viewHolder = (ReceiveVIewHolder) holder;
-            viewHolder.binding.message.setText(message.getMessage());
 
-            if (message.getMessage().equals("Photo")){
+            if (message.getImageUrl() != null){
                 viewHolder.binding.image.setVisibility(View.VISIBLE);
                 viewHolder.binding.message.setVisibility(View.GONE);
-                Glide.with(context).load(message.getImageUrl()).into(viewHolder.binding.image);
+                Glide.with(context).load(message.getImageUrl())
+                        .placeholder(R.drawable.placeholdre)
+                        .into(viewHolder.binding.image);
+                message.setImageUrl("");
             }
-            else {
+                viewHolder.binding.message.setText(message.getMessage());
 
-            }
+
+
 
             if (message.getImoje() >= 0){
 //                message.setImoje(reaction[(int) message.getImoje()]);
