@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.whatsapp.Models.Message;
 import com.example.whatsapp.R;
 import com.example.whatsapp.databinding.ItemReceiveBinding;
@@ -84,6 +85,10 @@ public class MessagesAdapter extends RecyclerView.Adapter{
         ReactionPopup popup = new ReactionPopup(context, config, (pos) -> {
             if (holder.getClass() == SentViewHolder.class){
                 SentViewHolder viewHolder = (SentViewHolder) holder;
+
+
+
+
                 viewHolder.binding.feelings.setImageResource(reaction[pos]);
                 viewHolder.binding.feelings.setVisibility(View.VISIBLE);
             }
@@ -117,6 +122,16 @@ public class MessagesAdapter extends RecyclerView.Adapter{
         if (holder.getClass() == SentViewHolder.class){
             SentViewHolder viewHolder = (SentViewHolder) holder;
             viewHolder.binding.message.setText(message.getMessage());
+
+            if (message.getMessage().equals("Photo")){
+                viewHolder.binding.image.setVisibility(View.VISIBLE);
+                viewHolder.binding.message.setVisibility(View.GONE);
+                Glide.with(context).load(message.getImageUrl()).into(viewHolder.binding.image);
+            }
+            else {
+
+            }
+
             if (message.getImoje() >= 0){
 //                message.setImoje(reaction[(int) message.getImoje()]);
                 viewHolder.binding.feelings.setImageResource(reaction[message.getImoje()]);
@@ -139,6 +154,15 @@ public class MessagesAdapter extends RecyclerView.Adapter{
         else {
             ReceiveVIewHolder viewHolder = (ReceiveVIewHolder) holder;
             viewHolder.binding.message.setText(message.getMessage());
+
+            if (message.getMessage().equals("Photo")){
+                viewHolder.binding.image.setVisibility(View.VISIBLE);
+                viewHolder.binding.message.setVisibility(View.GONE);
+                Glide.with(context).load(message.getImageUrl()).into(viewHolder.binding.image);
+            }
+            else {
+
+            }
 
             if (message.getImoje() >= 0){
 //                message.setImoje(reaction[(int) message.getImoje()]);

@@ -1,7 +1,19 @@
 package com.example.whatsapp.Models;
 
 public class Message {
-    private String messageId, message, senderId;
+    private String messageId;
+    private String message;
+    private String senderId;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    private String imageUrl;
     private long timestamp;
     private int imoje = -1;
 
