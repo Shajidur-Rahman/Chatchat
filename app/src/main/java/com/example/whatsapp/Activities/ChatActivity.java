@@ -59,6 +59,8 @@ public class ChatActivity extends AppCompatActivity {
         dialog.setMessage("Uploading image...");
         dialog.setCancelable(false);
 
+        messages = new ArrayList<>();
+
         String name = getIntent().getStringExtra("name");
         receiverUid = getIntent().getStringExtra("uid");
         senderUid = FirebaseAuth.getInstance().getUid();
@@ -66,7 +68,7 @@ public class ChatActivity extends AppCompatActivity {
         senderRoom = senderUid + receiverUid;
         receiverRoom = receiverUid + senderUid;
 
-        messages = new ArrayList<>();
+
         adapter = new MessagesAdapter(this, messages, senderRoom, receiverRoom);
         binding.chatRecycler.setLayoutManager(new LinearLayoutManager(this));
         binding.chatRecycler.setAdapter(adapter);
@@ -88,7 +90,7 @@ public class ChatActivity extends AppCompatActivity {
                             messages.add(message);
                         }
                         adapter.notifyDataSetChanged();
-                        binding.chatRecycler.smoothScrollToPosition(messages.size());
+//                        binding.chatRecycler.smoothScrollToPosition(messages.size());
                     }
 
                     @Override
@@ -144,12 +146,6 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        binding.attachment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         binding.attachment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,20 +187,19 @@ public class ChatActivity extends AppCompatActivity {
                     reference.putFile(selectedImg).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                            dialog.dismiss();
                             if (task.isSuccessful()){
                                 reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
                                     public void onSuccess(Uri uri) {
                                         String filePath = uri.toString();
-                                        dialog.dismiss();
 
-
-                                        String message = binding.sendMsg.getText().toString();
+                                            String message = binding.sendMsg.getText().toString();
 
                                             Date date = new Date();
                                             Message message1 = new Message(message, senderUid, date.getTime());
 
-                                            message1.setMessage("Photo");
+                                            message1.setMessage("photo");
                                             message1.setImageUrl(filePath);
                                             binding.sendMsg.setText("");
                                             String randomKey = database.getReference().push().getKey();

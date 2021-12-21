@@ -1,9 +1,7 @@
 package com.example.whatsapp.Adapters;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -57,7 +55,8 @@ public class MessagesAdapter extends RecyclerView.Adapter{
     @Override
     public int getItemViewType(int position) {
         Message message = messages.get(position);
-        if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals(message.getSenderId())){
+//        if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals(message.getSenderId())){
+        if (FirebaseAuth.getInstance().getUid().equals(message.getSenderId())){
             return ITEM_SENT;
         }
         else {
@@ -86,24 +85,34 @@ public class MessagesAdapter extends RecyclerView.Adapter{
             if (holder.getClass() == SentViewHolder.class){
                 SentViewHolder viewHolder = (SentViewHolder) holder;
 
+                viewHolder.binding.feelings.setImageResource(reaction[pos]);
+                viewHolder.binding.feelings.setVisibility(View.VISIBLE);
 
 
-                try{
-                    viewHolder.binding.feelings.setImageResource(reaction[pos]);
-                    viewHolder.binding.feelings.setVisibility(View.VISIBLE);
-                } catch (Exception e){
-                    pos = -1;
-                }
+//                try{
+//                    viewHolder.binding.feelings.setImageResource(reaction[pos]);
+//                    viewHolder.binding.feelings.setVisibility(View.VISIBLE);
+//                } catch (Exception e){
+//                    pos = -1;
+//                }
+
 
             }
             else {
                 ReceiveVIewHolder viewHolder = (ReceiveVIewHolder) holder;
-                try{
-                    viewHolder.binding.feelings.setImageResource(reaction[pos]);
-                    viewHolder.binding.feelings.setVisibility(View.VISIBLE);
-                } catch (Exception e){
-                    pos = -1;
-                }
+
+                viewHolder.binding.feelings.setImageResource(reaction[pos]);
+                viewHolder.binding.feelings.setVisibility(View.VISIBLE);
+
+
+//                try{
+//                    viewHolder.binding.feelings.setImageResource(reaction[pos]);
+//                    viewHolder.binding.feelings.setVisibility(View.VISIBLE);
+//                } catch (Exception e){
+//                    pos = -1;
+//                }
+
+
             }
 
             message.setImoje(pos);
@@ -128,18 +137,18 @@ public class MessagesAdapter extends RecyclerView.Adapter{
         });
 
         if (holder.getClass() == SentViewHolder.class){
-            SentViewHolder viewHolder = (SentViewHolder) holder;
+            SentViewHolder viewHolder = (SentViewHolder)holder;
 
-            if (message.getImageUrl() != null){
+            if(message.getMessage().equals("photo")) {
                 viewHolder.binding.image.setVisibility(View.VISIBLE);
                 viewHolder.binding.message.setVisibility(View.GONE);
-                Glide.with(context).load(message.getImageUrl())
+                Glide.with(context)
+                        .load(message.getImageUrl())
                         .placeholder(R.drawable.placeholdre)
                         .into(viewHolder.binding.image);
-                message.setImageUrl("");
             }
 
-                viewHolder.binding.message.setText(message.getMessage());
+            viewHolder.binding.message.setText(message.getMessage());
 
 
 
@@ -152,28 +161,28 @@ public class MessagesAdapter extends RecyclerView.Adapter{
                 viewHolder.binding.feelings.setVisibility(View.GONE);
             }
 
-            viewHolder.binding.message.setOnTouchListener(new View.OnTouchListener() {
-                @SuppressLint("ClickableViewAccessibility")
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    popup.onTouch(v, event);
-                    return false;
-                }
-            });
+//            viewHolder.binding.message.setOnTouchListener(new View.OnTouchListener() {
+//                @SuppressLint("ClickableViewAccessibility")
+//                @Override
+//                public boolean onTouch(View v, MotionEvent event) {
+//                    popup.onTouch(v, event);
+//                    return false;
+//                }
+//            });
 
         }
         else {
             ReceiveVIewHolder viewHolder = (ReceiveVIewHolder) holder;
 
-            if (message.getImageUrl() != null){
+            if(message.getMessage().equals("photo")) {
                 viewHolder.binding.image.setVisibility(View.VISIBLE);
                 viewHolder.binding.message.setVisibility(View.GONE);
-                Glide.with(context).load(message.getImageUrl())
+                Glide.with(context)
+                        .load(message.getImageUrl())
                         .placeholder(R.drawable.placeholdre)
                         .into(viewHolder.binding.image);
-                message.setImageUrl("");
             }
-                viewHolder.binding.message.setText(message.getMessage());
+            viewHolder.binding.message.setText(message.getMessage());
 
 
 
@@ -187,14 +196,14 @@ public class MessagesAdapter extends RecyclerView.Adapter{
                 viewHolder.binding.feelings.setVisibility(View.GONE);
             }
 
-            viewHolder.binding.message.setOnTouchListener(new View.OnTouchListener() {
-                @SuppressLint("ClickableViewAccessibility")
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    popup.onTouch(v, event);
-                    return false;
-                }
-            });
+//            viewHolder.binding.message.setOnTouchListener(new View.OnTouchListener() {
+//                @SuppressLint("ClickableViewAccessibility")
+//                @Override
+//                public boolean onTouch(View v, MotionEvent event) {
+//                    popup.onTouch(v, event);
+//                    return false;
+//                }
+//            });
 
         }
     }
