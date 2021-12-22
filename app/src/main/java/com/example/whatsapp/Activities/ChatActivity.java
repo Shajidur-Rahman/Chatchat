@@ -1,5 +1,6 @@
 package com.example.whatsapp.Activities;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -14,8 +15,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.bumptech.glide.Glide;
 import com.example.whatsapp.Adapters.MessagesAdapter;
 import com.example.whatsapp.Models.Message;
+import com.example.whatsapp.R;
 import com.example.whatsapp.databinding.ActivityChatBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -64,8 +67,12 @@ public class ChatActivity extends AppCompatActivity {
         messages = new ArrayList<>();
 
         String name = getIntent().getStringExtra("name");
+        String profile = getIntent().getStringExtra("profile");
         receiverUid = getIntent().getStringExtra("uid");
         senderUid = FirebaseAuth.getInstance().getUid();
+
+        binding.activeName.setText(name);
+        Glide.with(this).load(profile).placeholder(R.drawable.placeholdre).into(binding.activeImg);
 
         senderRoom = senderUid + receiverUid;
         receiverRoom = receiverUid + senderUid;
@@ -83,11 +90,13 @@ public class ChatActivity extends AppCompatActivity {
                 .child(senderRoom)
                 .child("Messages")
                 .addValueEventListener(new ValueEventListener() {
+                    @SuppressLint("NotifyDataSetChanged")
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         messages.clear();
                         for (DataSnapshot snapshot1 : snapshot.getChildren()){
                             Message message = snapshot1.getValue(Message.class);
+                            assert message != null;
                             message.setMessageId(snapshot1.getKey());
                             messages.add(message);
                         }
@@ -160,9 +169,11 @@ public class ChatActivity extends AppCompatActivity {
         }
         );
 
-        getSupportActionBar().setTitle(name);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setTitle(name);
+//
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm.isAcceptingText()){
