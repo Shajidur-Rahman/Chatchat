@@ -2,13 +2,11 @@ package com.example.whatsapp.Activities;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -72,7 +70,7 @@ public class ChatActivity extends AppCompatActivity {
         senderUid = FirebaseAuth.getInstance().getUid();
 
         binding.activeName.setText(name);
-        Glide.with(this).load(profile).placeholder(R.drawable.placeholdre).into(binding.activeImg);
+        Glide.with(this).load(profile).placeholder(R.drawable.user).into(binding.activeImg);
 
         senderRoom = senderUid + receiverUid;
         receiverRoom = receiverUid + senderUid;
@@ -158,30 +156,29 @@ public class ChatActivity extends AppCompatActivity {
         });
 
 
-        binding.attachment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-                startActivityForResult(intent, 25);
-            }
-        }
-        );
+//        binding.attachment.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent();
+//                intent.setAction(Intent.ACTION_GET_CONTENT);
+//                intent.setType("image/*");
+//                startActivityForResult(intent, 25);
+//            }
+//        }
+//        );
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 //        getSupportActionBar().setTitle(name);
-//
+//si
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (imm.isAcceptingText()){
-            binding.chatRecycler.smoothScrollToPosition(messages.size());
-        }
+//        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//        if (imm.isAcceptingText()){
+//            binding.chatRecycler.smoothScrollToPosition(messages.size());
+//        }
 
 
-        ;
 
     }
 
